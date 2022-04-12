@@ -30,19 +30,20 @@ function main() {
   if (argv.target) {
     target = argv.target;
   } else {
-    target = 'localhost:50051';
+    target = 'localhost:50052';
   }
   var client = new services.GreeterClient(target,
                                           grpc.credentials.createInsecure());
   var request = new messages.HelloRequest();
   var user;
   if (argv._.length > 0) {
-    user = argv._[0]; 
+    user = argv._[0];
   } else {
     user = 'world';
   }
   request.setName(user);
   client.sayHello(request, function(err, response) {
+    if (err) console.error(err);
     console.log('Greeting:', response.getMessage());
   });
 }
